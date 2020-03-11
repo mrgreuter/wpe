@@ -1,5 +1,7 @@
 import re
-visits = {}
+from collections import OrderedDict
+
+visits = OrderedDict()
 
 def display_places():
     """List all places the user visited"""
