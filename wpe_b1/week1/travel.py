@@ -1,14 +1,11 @@
 import re
-from collections import OrderedDict
-
-visits = OrderedDict()
 
 def display_places():
     """List all places the user visited"""
     global visits
-    for country, cities in visits.items():
+    for country, cities in sorted(visits.items()):
         print(country)
-        for cityname, visits in cities.items():
+        for cityname, visits in sorted(cities.items()):
             if visits['count'] > 1:
                 print(f"\t{cityname} ({visits['count']})")
             else:
