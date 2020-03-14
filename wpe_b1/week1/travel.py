@@ -1,5 +1,7 @@
 import re
 
+visits = {}
+
 def display_places():
     """List all places the user visited"""
     global visits
@@ -16,12 +18,15 @@ def collect_places():
     active = True
     while active:
         user_input = input("Tell me where you went: ")
-        user_input_format_valid = re.fullmatch(r'[\s\w]+,[\s]*[\w\s]+', user_input)
-
-        if user_input == '':
+        match_pattern = r'[\s]*([\s+\w]+),[\s]*([\w\s]+)[\s]*'
+        user_input_regex_match = re.fullmatch(match_pattern,
+                                              user_input)
+        if user_input == '' or user_input == '\n':
             active = False
-        elif user_input_format_valid:
-            city, country = user_input.split(',')
+        elif user_input_regex_match:
+            city = user_input_regex_match.group(1)
+            country = user_input_regex_match.group(2)
+
             if country in visits:
                 if city in visits[country]:
                     visits[country][city]['count'] += 1
@@ -34,4 +39,5 @@ def collect_places():
 
 if __name__ == "__main__":
     collect_places()
+    print(len(visits))
     display_places()
