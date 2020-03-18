@@ -17,15 +17,21 @@ class myrange2:
         return self
 
     def __next__(self):
-        if self.result > self.end:
+        if self.result < self.end:
             self.result += self.step_size
-            return result
+            return self.result
         else:
             StopIteration
 
+a = myrange2(5)
+my_iter = iter(a)
 
-my_iter = iter(myrange2(5))
-my_iter2 = iter(myrange2(5, 10))
-my_iter3 = iter(myrange2(0, 42, 7))
+#my_iter2 = iter(myrange2(5, 10))
+#my_iter3 = iter(myrange2(0, 42, 7))
 
+print(next(my_iter))
+print(next(my_iter))
+print(next(my_iter))
+print(next(my_iter))
+print(next(my_iter))
 print(next(my_iter))
