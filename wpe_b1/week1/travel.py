@@ -1,6 +1,5 @@
 import re
-
-visits = {}
+visits = dict()
 
 def display_places():
     """List all places the user visited"""
@@ -14,18 +13,22 @@ def display_places():
                 print(f"\t{cityname}")
 
 def collect_places():
-    """Save places the user went into global var visits"""
-    active = True
-    while active:
+    """Save places the user went to into the global var 'visits' """
+    input_loop_active = True
+    visits.clear()
+    while input_loop_active:
         user_input = input("Tell me where you went: ")
-        match_pattern = r'[\s]*([\s+\w]+),[\s]*([\w\s]+)[\s]*'
-        user_input_regex_match = re.fullmatch(match_pattern,
-                                              user_input)
-        if user_input == '' or user_input == '\n':
-            active = False
-        elif user_input_regex_match:
-            city = user_input_regex_match.group(1)
-            country = user_input_regex_match.group(2)
+
+        match_pattern = r'[\s]*(?P<city>[\s+\w]+),[\s]*(?P<country>[\w\s]+)[\s]*'
+        valid_user_input = re.fullmatch(match_pattern, user_input)
+        stop_input_loop = user_input.strip() == '' or user_input == '\n'
+
+        if stop_input_loop:
+            input_loop_active = False
+
+        elif valid_user_input:
+            city = valid_user_input.group('city')
+            country = valid_user_input.group('country')
 
             if country in visits:
                 if city in visits[country]:
@@ -39,5 +42,4 @@ def collect_places():
 
 if __name__ == "__main__":
     collect_places()
-    print(len(visits))
     display_places()
