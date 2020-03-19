@@ -1,31 +1,23 @@
 class myrange3:
 
-    def __init__(self, range, max_range=0, step_size=1):
-        self.current_value = 0
+    def __new__(cls, range, max_range=0, step_size=1):
+
         if max_range != 0 and max_range < range:
             raise ValueError
         elif max_range != 0:
-            self.start = range
-            self.end = max_range
+            cls.start = range
+            cls.end = max_range
         else:
-            self.start = 0
-            self.end = range
-        
-        self.step_size = step_size
+            cls.start = 0
+            cls.end = range
 
-    def __iter__(self):
-        self.current_value = self.start
-        return self
+        cls.current_value = cls.start
+        cls.step_size = step_size
 
-    def __next__(self):
-        if self.current_value == self.start:
-            self.current_value += self.step_size
-            return self.start
-        elif self.current_value < self.end:
-            return self.current_value
-        else:
-            raise StopIteration
+        while cls.current_value < cls.end:
+            yield cls.current_value
+            cls.current_value += cls.step_size
 
 
-for x in myrange3(10)
+for x in myrange3(5):
     print(x)
