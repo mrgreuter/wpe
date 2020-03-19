@@ -19,6 +19,3 @@ class myrange2:
             cls.range_list.append(current_val)
             current_val += step_size
         return cls.range_list
-
-new_list = myrange2(5,20,3)
-print(new_list)
