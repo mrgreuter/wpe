@@ -18,12 +18,14 @@ class myrange3:
         return self
 
     def __next__(self):
-        if self.current_value < self.end:
+        if self.current_value == self.start:
             self.current_value += self.step_size
+            return self.start
+        elif self.current_value < self.end:
             return self.current_value
         else:
             raise StopIteration
 
-a = myrange3(4)
-print(next(a))
-print(next(a))
+
+for x in myrange3(10)
+    print(x)
