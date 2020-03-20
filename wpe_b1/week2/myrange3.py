@@ -1,10 +1,10 @@
 class myrange3:
 
-    def __new__(cls, range, max_range=0, step_size=1):
+    def __new__(cls, range, max_range=None, step_size=None):
 
-        if max_range != 0 and max_range < range:
+        if max_range != None and max_range < range:
             raise ValueError
-        elif max_range != 0:
+        elif max_range != None:
             cls.start = range
             cls.end = max_range
         else:
@@ -12,7 +12,11 @@ class myrange3:
             cls.end = range
 
         cls.current_value = cls.start
-        cls.step_size = step_size
+        
+        if step_size != None: 
+            cls.step_size = step_size
+        else:
+            cls.step_size = 1
 
         while cls.current_value < cls.end:
             yield cls.current_value

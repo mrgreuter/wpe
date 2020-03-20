@@ -1,8 +1,8 @@
 class myrange2:
 
-    def __new__(cls, range, max_range=0, step_size=1):
+    def __new__(cls, range, max_range=None, step_size=None):
 
-        if max_range != 0 and max_range < range:
+        if max_range != None and max_range < range:
             raise ValueError
         elif max_range != 0:
             cls.start = range
@@ -11,7 +11,10 @@ class myrange2:
             cls.start = 0
             cls.end = range
         
-        cls.step_size = step_size
+        if step_size != None:
+            cls.step_size = step_size
+        else:
+            cls.step_size = 1
 
         cls.range_list = []
         current_val = cls.start
