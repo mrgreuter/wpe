@@ -8,7 +8,7 @@ class myrange2:
         else:
             cls.max = start
             cls.start = 0
-        
+
         cls.end = cls.max
         cls.step_size = step_size
 
