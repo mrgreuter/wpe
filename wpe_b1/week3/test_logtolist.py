@@ -18,14 +18,14 @@ def mini_mini_file():
 66.249.65.12 - - [30/Jan/2010:04:05:43 +0200] "GET /browse/one_node/1406 HTTP/1.1" 302 118 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 ''')
 
-def test_read_empty_file(mini_mini_file):
+def test_read_empty_file():
     log_list = logtolist(StringIO(''))
     assert len(log_list) == 0
     assert log_list == []
 
-def test_read_empty_line(mini_mini_file):
+def test_read_empty_line():
     log_list = logtolist(StringIO('\n'))
-    assert len(log_list) == 1
+    assert len(log_list) == 0
 
 def test_read_logs(mini_mini_file):
     log_list = logtolist(mini_mini_file)
@@ -63,7 +63,7 @@ def test_re_read_empty_file(mini_mini_file):
 
 def test_re_read_empty_line(mini_mini_file):
     log_list = logtolist(StringIO('\n'))
-    assert len(log_list) == 1
+    assert len(log_list) == 0
 
 def test_re_read_bad_line(mini_mini_file):
     log_list = logtolist(StringIO('abc def ghi\n'))
