@@ -1,22 +1,12 @@
 import re
+import sys
+import os
 
-def get_log_content(input_data: str) -> str:
-    """check if input_data is a file or a data string, return content/string"""
-    content = ''
-    # check if input data is a stringio object;
-    #if hasattr(input_data, 'getvalue'):
-    #    content = input_data.getvalue()
-    #else:
-    #with open(input_data) as logfile:
-    #    content = logfile.readlines()
-    content = input_data.getvalue()
-    if content == '\n':
+def get_log_content(log_file_content: str) -> list:
+    """clean log data"""
+    if log_file_content == ['\n']:
         return []
-    content = content.strip('\n')
-    if content == '':
-        return []
-    else:
-        return content.split('\n')
+    return log_file_content
 
 def parse_log_line(line: str) -> dict:
         """parse log line and return new log line dictionary"""
@@ -46,10 +36,19 @@ def parse_log_line(line: str) -> dict:
 
         return new_log_line
 
-def logtolist(filename: str) -> dict:
+def logtolist(input_data: str) -> dict:
     """parse logfile and return list with log lines"""
-    log_file_content_as_list = get_log_content(filename)
-    log_list = []
-    for line in log_file_content_as_list:
-        log_list.append(parse_log_line(line))
-    return log_list
+    log_file_content = get_log_content(input_data.readlines())
+    position_index = 0
+    for line in log_file_content:
+        log_file_content[position_index] = parse_log_line(line)
+        position_index += 1
+    return log_file_content
+
+if __name__ == '__main__':
+    filename = sys.argv[1]
+    script_path = os.path.dirname(__file__)
+    full_file_path = os.path.join(script_path, filename)
+    with open(full_file_path) as logfile:
+        result = logtolist(logfile)
+    print(result)
