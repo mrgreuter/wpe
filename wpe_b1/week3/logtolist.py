@@ -1,15 +1,15 @@
 import re
 
 def get_log_content(input_data: str) -> str:
-
+    """check if input_data is a file or a data string, return content/string"""
     content = ''
     # check if input data is a stringio object;
-    if hasattr(input_data, 'getvalue'):
-        content = input_data.getvalue()
-    else:
-        with open(input_data) as logfile:
-            content = logfile.readlines()
-    
+    #if hasattr(input_data, 'getvalue'):
+    #    content = input_data.getvalue()
+    #else:
+    #with open(input_data) as logfile:
+    #    content = logfile.readlines()
+    content = input_data.getvalue()
     if content == '\n':
         return []
     content = content.strip('\n')
@@ -19,7 +19,7 @@ def get_log_content(input_data: str) -> str:
         return content.split('\n')
 
 def parse_log_line(line: str) -> dict:
-
+        """parse log line and return new log line dictionary"""
         field_names = ("ip_address", "timestamp", "request")
         error_messages = {
             "ip_address": "No IP address found",
@@ -47,7 +47,7 @@ def parse_log_line(line: str) -> dict:
         return new_log_line
 
 def logtolist(filename: str) -> dict:
-    
+    """parse logfile and return list with log lines"""
     log_file_content_as_list = get_log_content(filename)
     log_list = []
     for line in log_file_content_as_list:
